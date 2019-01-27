@@ -8,5 +8,5 @@ app = Flask(__name__)
 def main():
 	file = open("meetingdata/meetingdata.json", "w")
 	file.write(datatojson())
-	commitjson()
-	return "One step at a time my friend :)"
+	#commitjson()
+	return "One Heroku step at a time my friend :)"
