@@ -4,3 +4,6 @@
 #VENV Folders
 venv
 __pycache__
+
+#Data Folder
+meetingdata

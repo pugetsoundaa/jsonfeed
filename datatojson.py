@@ -20,7 +20,7 @@ def datatojson():
 	output.append('[')
 
 	#Loop to create JSON string in Meeting Guide format
-	for x in range (225, meetings_num):
+	for x in range (0, meetings_num):
 		output.append('{"name":"')
 		#Have to add \ before each forward slash
 		output.append(meetings[x]["gsx$mname"]["$t"].replace("/","\/"))
