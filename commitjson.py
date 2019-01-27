@@ -6,4 +6,3 @@ def commitjson():
 	repo.git.add('meetingdata.json')
 	repo.git.commit('-m',datetime.datetime.now())
 	repo.git.push('origin','master')
-	print("Meeting Data Updated Successfully")
