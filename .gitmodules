@@ -1,0 +1,3 @@
+[submodule "meetingdatatest"]
+	path = meetingdatatest
+	url = https://github.com/pugetsoundaa/meetingdatatest
