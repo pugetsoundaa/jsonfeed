@@ -30,6 +30,9 @@ def datatojson():
 		output.append(dayArray(meetings[x]))
 		output.append('],"time":"')
 		output.append(timeFormatted(meetings[x]))
+		output.append('","location":"')
+		#Have to add \ before each forward slash
+		output.append(meetings[x]["gsx$location"]["$t"].replace("/","\/"))
 		output.append('","notes":"')
 		#Have to add \ before each forward slash
 		output.append(meetings[x]["gsx$websitenotes"]["$t"].replace("/","\/"))
