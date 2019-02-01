@@ -2,9 +2,9 @@ import requests
 import json
 
 def datatojson():
-	#Google Sheet copy for development for Puget Sound AA CSO: https://docs.google.com/spreadsheets/d/1si4mj-YVntcCXaV2tV8s3ekQDXQCUP-hXUsDmst6A1I/edit?usp=sharing
+	#Google Sheet copy for development for Puget Sound AA CSO: https://docs.google.com/spreadsheets/d/1fLxXxKFIiuPJOuTTNzAn1S0rmgjRQhFxqDNZabACIcI/edit?usp=sharing
 	#Google Sheet ID from publicly shared link above
-	SPREADSHEET_ID = '1si4mj-YVntcCXaV2tV8s3ekQDXQCUP-hXUsDmst6A1I'
+	SPREADSHEET_ID = '1fLxXxKFIiuPJOuTTNzAn1S0rmgjRQhFxqDNZabACIcI'
 	#Google Sheet JSON Feed URL - must have published the spreadsheet to the web (different than sharing, File->Publish to the web...)
 	SPREADSHEET_FEED_URL = "https://spreadsheets.google.com/feeds/list/"+SPREADSHEET_ID+"/1/public/values?alt=json"
 
