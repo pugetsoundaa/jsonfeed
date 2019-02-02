@@ -57,20 +57,29 @@ def datatojson():
 	
 	return output_string
 
-#properly formats the time into HH:MM from from stime_num integer
+#properly formats the updated 
 def updatedFormatted(meeting):
 	lupdateString = meeting["gsx$lupdate"]["$t"]
 	updatedoutput = []
 	
-	#checks to see if the month is a single digit and adds zero in front if so
+	#checks to see if the month AND day are single digits
+	if(len(lupdateString) == 8):
+		#insert 0 in front of month
+		lupdateString = "0" + lupdateString
+	#checks to see if the month OR day is a single digit
 	if(len(lupdateString) == 9):
-		lupdateString = "0"+lupdateString
+		#checks to see if month is double digit and if yes inserts 0 in front of day
+		if(lupdateString[0] == "1" or lupdateString[0] == "0"):
+			lupdateString = lupdateString[:3] + "0" + lupdateString[3:]
+		else:
+			#insert 0 in front of month
+			lupdateString = "0" + lupdateString
 
 	updatedoutput.append(lupdateString[6:11])
 	updatedoutput.append("-")
-	updatedoutput.append(lupdateString[3:5])
-	updatedoutput.append("-")
 	updatedoutput.append(lupdateString[0:2])
+	updatedoutput.append("-")
+	updatedoutput.append(lupdateString[3:5])
 	updatedoutput.append(" 00:00:00")
 	
 	updatedFormattedString = ''.join(updatedoutput)
