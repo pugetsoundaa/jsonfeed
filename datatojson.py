@@ -36,6 +36,8 @@ def datatojson():
 		output.append('","notes":"')
 		#Have to add \ before each forward slash
 		output.append(meetings[x]["gsx$websitenotes"]["$t"].replace("/","\/"))
+		output.append('","updated":"')
+		output.append(updatedFormatted(meetings[x]))
 		output.append('","types":[')
 		output.append(typesArray(meetings[x]))
 		output.append('],"address":"')
@@ -54,6 +56,25 @@ def datatojson():
 	output_string = ''.join(output)
 	
 	return output_string
+
+#properly formats the time into HH:MM from from stime_num integer
+def updatedFormatted(meeting):
+	lupdateString = meeting["gsx$lupdate"]["$t"]
+	updatedoutput = []
+	
+	#checks to see if the month is a single digit and adds zero in front if so
+	if(len(lupdateString) == 9):
+		lupdateString = "0"+lupdateString
+
+	updatedoutput.append(lupdateString[6:11])
+	updatedoutput.append("-")
+	updatedoutput.append(lupdateString[3:5])
+	updatedoutput.append("-")
+	updatedoutput.append(lupdateString[0:2])
+	updatedoutput.append(" 00:00:00")
+	
+	updatedFormattedString = ''.join(updatedoutput)
+	return updatedFormattedString
 
 #checks on each type and adds corresponding code to the day array if true
 def typesArray(meeting):
