@@ -38,6 +38,8 @@ def datatojson():
 		output.append(meetings[x]["gsx$websitenotes"]["$t"].replace("/","\/"))
 		output.append('","updated":"')
 		output.append(updatedFormatted(meetings[x]))
+		output.append('","url":"https:\/\/apps.pugetsoundaa.org\/meetinglist\/index.html?slug=')
+		output.append(meetings[x]["gsx$slug"]["$t"])
 		output.append('","types":[')
 		output.append(typesArray(meetings[x]))
 		output.append('],"address":"')
