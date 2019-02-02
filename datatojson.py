@@ -2,7 +2,10 @@ import requests
 import json
 
 def datatojson():
-	#Google Sheet copy for development for Puget Sound AA CSO: https://docs.google.com/spreadsheets/d/1fLxXxKFIiuPJOuTTNzAn1S0rmgjRQhFxqDNZabACIcI/edit?usp=sharing
+	#This script is run as a simple Flask app on a free Heroku plan to allow meeting data in a Google Sheet to connect to the Meeting Guide app
+	#For full Flask app see https://github.com/pugetsoundaa/jsonfeed
+
+	#Google Sheet for Puget Sound AA CSO: https://docs.google.com/spreadsheets/d/1fLxXxKFIiuPJOuTTNzAn1S0rmgjRQhFxqDNZabACIcI/edit?usp=sharing
 	#Google Sheet ID from publicly shared link above
 	SPREADSHEET_ID = '1fLxXxKFIiuPJOuTTNzAn1S0rmgjRQhFxqDNZabACIcI'
 	#Google Sheet JSON Feed URL - must have published the spreadsheet to the web (different than sharing, File->Publish to the web...)
@@ -59,7 +62,7 @@ def datatojson():
 	
 	return output_string
 
-#properly formats the updated 
+#properly formats updated into YYYY-MM-DD HH:MM:SS
 def updatedFormatted(meeting):
 	lupdateString = meeting["gsx$updated"]["$t"]
 	updatedoutput = []
