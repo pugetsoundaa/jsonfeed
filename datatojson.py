@@ -69,7 +69,7 @@ def updatedFormatted(meeting):
 	#checks to see if the month OR day is a single digit
 	if(len(lupdateString) == 9):
 		#checks to see if month is double digit and if yes inserts 0 in front of day
-		if(lupdateString[0] == "1" or lupdateString[0] == "0"):
+		if(lupdateString[2] == "/"):
 			lupdateString = lupdateString[:3] + "0" + lupdateString[3:]
 		else:
 			#insert 0 in front of month
