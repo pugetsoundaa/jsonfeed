@@ -23,7 +23,7 @@ def datatojson():
 	for x in range (0, meetings_num):
 		output.append('{"name":"')
 		#Have to add \ before each forward slash
-		output.append(meetings[x]["gsx$mname"]["$t"].replace("/","\/"))
+		output.append(meetings[x]["gsx$name"]["$t"].replace("/","\/"))
 		output.append('","slug":"')
 		output.append(meetings[x]["gsx$slug"]["$t"])
 		output.append('","day":[')
@@ -61,7 +61,7 @@ def datatojson():
 
 #properly formats the updated 
 def updatedFormatted(meeting):
-	lupdateString = meeting["gsx$lupdate"]["$t"]
+	lupdateString = meeting["gsx$updated"]["$t"]
 	updatedoutput = []
 	
 	#checks to see if the month AND day are single digits
@@ -132,13 +132,13 @@ def typesArray(meeting):
 def timeFormatted(meeting):
 	timeoutput = []
 
-	if(int(meeting["gsx$stimenum"]["$t"])<1000):
+	if(int(meeting["gsx$time"]["$t"])<1000):
 		timeoutput.append('0')
-		timeoutput.append(meeting["gsx$stimenum"]["$t"][:1])
+		timeoutput.append(meeting["gsx$time"]["$t"][:1])
 	else:
-		timeoutput.append(meeting["gsx$stimenum"]["$t"][:2])
+		timeoutput.append(meeting["gsx$time"]["$t"][:2])
 	timeoutput.append(':')
-	timeoutput.append(meeting["gsx$stimenum"]["$t"][-2:])
+	timeoutput.append(meeting["gsx$time"]["$t"][-2:])
 
 	timeFormattedString = ''.join(timeoutput)
 	return timeFormattedString
