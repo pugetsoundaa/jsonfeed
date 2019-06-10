@@ -15,7 +15,6 @@ def meetingdata():
 	json_request = requests.get(SPREADSHEET_FEED_URL)
 	json_string = json_request.text
 	parsed_json = json.loads(json_string)
-
 	#Preprocessing before meeting loop
 	gs_meetings = parsed_json["feed"]["entry"]
 	gs_meetings_num = len(gs_meetings)
@@ -31,63 +30,26 @@ def meetingdata():
 		single_meeting_dict.update({'location' : gs_meetings[x]["gsx$location"]["$t"]})
 		single_meeting_dict.update({'notes' : gs_meetings[x]["gsx$websitenotes"]["$t"]})
 		single_meeting_dict.update({'updated' : updatedFormatted(gs_meetings[x])})
-		single_meeting_url = "https://apps.pugetsoundaa.org/meetinglist/index.html?slug=" + gs_meetings[x]["gsx$slug"]["$t"]
-		single_meeting_dict.update({'url' : single_meeting_url})
+		# can't use url until switch back to array of days since slug no longer corresponds with what's in google sheet
+		#single_meeting_url = "https://apps.pugetsoundaa.org/meetinglist/index.html?slug=" + gs_meetings[x]["gsx$slug"]["$t"]
+		#single_meeting_dict.update({'url' : single_meeting_url})
 		single_meeting_dict.update({'types' : typesArray(gs_meetings[x])})
 		single_meeting_dict.update({'address' : gs_meetings[x]["gsx$address"]["$t"]})
 		single_meeting_dict.update({'city' : gs_meetings[x]["gsx$city"]["$t"]})
 		single_meeting_dict.update({'state' : 'WA'})
 		single_meeting_dict.update({'postal_code' : gs_meetings[x]["gsx$zipcode"]["$t"]})
 		single_meeting_dict.update({'country' : 'US'})
+		#output.append(single_meeting_dict)
 
-		output.append(single_meeting_dict)
-
+		#loop for single day output, currently necessary for data being imported by wordpress meeting guide plugin
+		for y in single_meeting_dict["day"]:
+			temp_dict = dict(single_meeting_dict)
+			temp_dict["day"] = y
+			temp_dict["slug"] = single_meeting_dict["slug"]+"-"+str(y)
+			output.append(temp_dict)
 
 	return output
-	'''
-	output = []
-	output.append('[')
 
-	#Loop to create JSON string in Meeting Guide format
-
-	for x in range (0, meetings_num):
-		-output.append('{"name":"')
-		#Have to add \ before each forward slash
-		output.append(meetings[x]["gsx$name"]["$t"].replace("/","\/"))
-		-output.append('","slug":"')
-		output.append(meetings[x]["gsx$slug"]["$t"])
-		-output.append('","day":[')
-		output.append(dayArray(meetings[x]))
-		-output.append('],"time":"')
-		output.append(timeFormatted(meetings[x]))
-		-output.append('","location":"')
-		#Have to add \ before each forward slash
-		output.append(meetings[x]["gsx$location"]["$t"].replace("/","\/"))
-		-output.append('","notes":"')
-		#Have to add \ before each forward slash
-		output.append(meetings[x]["gsx$websitenotes"]["$t"].replace("/","\/"))
-		-output.append('","updated":"')
-		output.append(updatedFormatted(meetings[x]))
-		-output.append('","url":"https:\/\/apps.pugetsoundaa.org\/meetinglist\/index.html?slug=')
-		output.append(meetings[x]["gsx$slug"]["$t"])
-		-output.append('","types":[')
-		output.append(typesArray(meetings[x]))
-		-output.append('],"address":"')
-		#Have to add \ before each forward slash
-		output.append(meetings[x]["gsx$address"]["$t"].replace("/","\/"))
-		output.append('","city":"')
-		output.append(meetings[x]["gsx$city"]["$t"])
-		output.append('","state":"WA","postal_code":"')
-		output.append(meetings[x]["gsx$zipcode"]["$t"])
-		output.append('","country":"US"}')
-		if (x != meetings_num -1):
-			output.append(',')
-
-	#Postprocessing after Meeting Guide format loop
-	output.append(']')
-	output_string = ''.join(output)
-	return output_string
-	'''
 
 #properly formats updated into YYYY-MM-DD HH:MM:SS
 def updatedFormatted(meeting):
