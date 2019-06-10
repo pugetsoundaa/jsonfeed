@@ -1,9 +1,10 @@
-from flask import Flask
-from datatojson import datatojson
+from flask import Flask, jsonify
+from meetingdata import meetingdata
 
 
 app = Flask(__name__)
 
 @app.route("/")
 def main():
-	return datatojson()
+	return jsonify(meetingdata())
+	
