@@ -30,23 +30,13 @@ def meetingdata():
 		single_meeting_dict.update({'location' : gs_meetings[x]["gsx$location"]["$t"]})
 		single_meeting_dict.update({'notes' : gs_meetings[x]["gsx$websitenotes"]["$t"]})
 		single_meeting_dict.update({'updated' : updatedFormatted(gs_meetings[x])})
-		# can't use url until switch back to array of days since slug no longer corresponds with what's in google sheet
-		#single_meeting_url = "https://apps.pugetsoundaa.org/meetinglist/index.html?slug=" + gs_meetings[x]["gsx$slug"]["$t"]
-		#single_meeting_dict.update({'url' : single_meeting_url})
 		single_meeting_dict.update({'types' : typesArray(gs_meetings[x])})
 		single_meeting_dict.update({'address' : gs_meetings[x]["gsx$address"]["$t"]})
 		single_meeting_dict.update({'city' : gs_meetings[x]["gsx$city"]["$t"]})
 		single_meeting_dict.update({'state' : 'WA'})
 		single_meeting_dict.update({'postal_code' : gs_meetings[x]["gsx$zipcode"]["$t"]})
 		single_meeting_dict.update({'country' : 'US'})
-		#output.append(single_meeting_dict)
-
-		#loop for single day output, currently necessary for data being imported by wordpress meeting guide plugin
-		for y in single_meeting_dict["day"]:
-			temp_dict = dict(single_meeting_dict)
-			temp_dict["day"] = y
-			temp_dict["slug"] = single_meeting_dict["slug"]+"-"+str(y)
-			output.append(temp_dict)
+		output.append(single_meeting_dict)
 
 	return output
 
